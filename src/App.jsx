@@ -3,6 +3,7 @@ import Profile from "./pages/Profile";
 import GradeHistory from "./pages/GradeHistory";
 import Grades from "./pages/Grades";
 import Marks from "./pages/Marks";
+import Certificates from "./pages/Certificates";
 
 function App() {
   const navigate = useNavigate();
@@ -52,77 +53,102 @@ function App() {
             font-semibold
           "
         >
+
+          {/* Profile */}
           <li>
             <Link
               to="/profile"
               className="
-    cursor-pointer
-    px-3
-    py-1
-    rounded-lg
-    transition-all
-    duration-300
-    hover:bg-cyan-500/10
-    hover:text-cyan-400
-  "
+                cursor-pointer
+                px-3
+                py-1
+                rounded-lg
+                transition-all
+                duration-300
+                hover:bg-cyan-500/10
+                hover:text-cyan-400
+              "
             >
               Profile
             </Link>
           </li>
 
+          {/* Marks */}
           <li>
             <Link
               to="/marks"
               className="
-    cursor-pointer
-    px-3
-    py-1
-    rounded-lg
-    transition-all
-    duration-300
-    hover:bg-cyan-500/10
-    hover:text-cyan-400
-  "
+                cursor-pointer
+                px-3
+                py-1
+                rounded-lg
+                transition-all
+                duration-300
+                hover:bg-cyan-500/10
+                hover:text-cyan-400
+              "
             >
               Marks
             </Link>
           </li>
 
+          {/* Grades */}
           <li>
             <Link
               to="/grades"
               className="
-    cursor-pointer
-    px-3
-    py-1
-    rounded-lg
-    transition-all
-    duration-300
-    hover:bg-cyan-500/10
-    hover:text-cyan-400
-  "
+                cursor-pointer
+                px-3
+                py-1
+                rounded-lg
+                transition-all
+                duration-300
+                hover:bg-cyan-500/10
+                hover:text-cyan-400
+              "
             >
               Grades
             </Link>
           </li>
 
+          {/* Grade History */}
           <li>
             <Link
               to="/history"
               className="
-    cursor-pointer
-    px-3
-    py-1
-    rounded-lg
-    transition-all
-    duration-300
-    hover:bg-cyan-500/10
-    hover:text-cyan-400
-  "
+                cursor-pointer
+                px-3
+                py-1
+                rounded-lg
+                transition-all
+                duration-300
+                hover:bg-cyan-500/10
+                hover:text-cyan-400
+              "
             >
               Grade History
             </Link>
           </li>
+
+          {/* Certificates */}
+          <li>
+            <Link
+              to="/certificates"
+              className="
+                cursor-pointer
+                px-3
+                py-1
+                rounded-lg
+                transition-all
+                duration-300
+                hover:bg-cyan-500/10
+                hover:text-cyan-400
+              "
+            >
+              Certificates
+            </Link>
+          </li>
+
         </ul>
 
       </nav>
@@ -141,29 +167,40 @@ function App() {
       >
         <Routes>
 
+          {/* Default Page */}
           <Route
             path="/"
             element={<Profile />}
           />
 
+          {/* Profile */}
           <Route
             path="/profile"
             element={<Profile />}
           />
 
+          {/* Marks */}
           <Route
             path="/marks"
             element={<Marks />}
           />
 
+          {/* Grades */}
           <Route
             path="/grades"
             element={<Grades />}
           />
 
+          {/* Grade History */}
           <Route
             path="/history"
             element={<GradeHistory />}
+          />
+
+          {/* Certificates */}
+          <Route
+            path="/certificates"
+            element={<Certificates />}
           />
 
         </Routes>
