@@ -5,6 +5,8 @@ import {
   Eye,
   BookOpen,
   Award,
+  GraduationCap,
+  Briefcase,
   X,
 } from "lucide-react";
 
@@ -101,23 +103,59 @@ export default function Certificates() {
   const finalDocuments = [
     {
       title: "Provisional Certificate",
-      subtitle: "Final Document",
+      subtitle: "Final Academic Document",
       file: "/certificates/final-documents/provisional-certificate.pdf",
     },
     {
       title: "Transfer Certificate",
-      subtitle: "Final Document",
+      subtitle: "Final Academic Document",
       file: "/certificates/final-documents/transfer-certificate.pdf",
     },
     {
       title: "Degree Certificate",
-      subtitle: "Final Document",
+      subtitle: "Final Academic Document",
       file: "/certificates/final-documents/degree-certificate.pdf",
     },
     {
       title: "Consolidated Grade Sheet",
-      subtitle: "Final Document",
+      subtitle: "Final Academic Document",
       file: "/certificates/final-documents/consolidated-grade-sheet.pdf",
+    },
+  ];
+
+  const nptelCertificates = [
+    {
+      title: "Conservation Economics",
+      subtitle: "NPTEL Certification",
+      file: "/certificates/nptel/conservation-economics.pdf",
+    },
+    {
+      title: "Python for Data Science",
+      subtitle: "NPTEL Certification",
+      file: "/certificates/nptel/python-for-data-science.pdf",
+    },
+    {
+      title: "Education for Sustainable Development",
+      subtitle: "NPTEL Certification",
+      file: "/certificates/nptel/education-for-sustainable-development.pdf",
+    },
+  ];
+
+  const summerInternship = [
+    {
+      title: "Internship Completion Certificate",
+      subtitle: "Summer Internship",
+      file: "/certificates/summer-internship/internship-completion-certificate.pdf",
+    },
+    {
+      title: "Internship Marks Sheet",
+      subtitle: "Summer Internship",
+      file: "/certificates/summer-internship/internship-marks-sheet.pdf",
+    },
+    {
+      title: "Project Completion Certificate",
+      subtitle: "Summer Internship",
+      file: "/certificates/summer-internship/project-completion-certificate.pdf",
     },
   ];
 
@@ -134,6 +172,14 @@ export default function Certificates() {
       name: "Final Documents",
       icon: <Award className="w-5 h-5" />,
     },
+    {
+      name: "NPTEL",
+      icon: <GraduationCap className="w-5 h-5" />,
+    },
+    {
+      name: "Summer Internship",
+      icon: <Briefcase className="w-5 h-5" />,
+    },
   ];
 
   const getDocuments = () => {
@@ -145,10 +191,22 @@ export default function Certificates() {
       return transcripts;
     }
 
-    return finalDocuments;
+    if (activeCategory === "Final Documents") {
+      return finalDocuments;
+    }
+
+    if (activeCategory === "NPTEL") {
+      return nptelCertificates;
+    }
+
+    if (activeCategory === "Summer Internship") {
+      return summerInternship;
+    }
+
+    return [];
   };
 
-  const getIcon = () => {
+  const getCategoryIcon = () => {
     if (activeCategory === "Grade Sheets") {
       return <FileText className="w-6 h-6" />;
     }
@@ -157,13 +215,27 @@ export default function Certificates() {
       return <BookOpen className="w-6 h-6" />;
     }
 
-    return <Award className="w-6 h-6" />;
+    if (activeCategory === "Final Documents") {
+      return <Award className="w-6 h-6" />;
+    }
+
+    if (activeCategory === "NPTEL") {
+      return <GraduationCap className="w-6 h-6" />;
+    }
+
+    if (activeCategory === "Summer Internship") {
+      return <Briefcase className="w-6 h-6" />;
+    }
+
+    return <FileText className="w-6 h-6" />;
   };
 
-  return (
-    <div className="p-6 text-white">
+  const documents = getDocuments();
 
-      {/* Title */}
+  return (
+    <div className="min-h-full p-6 text-white">
+
+      {/* Page Title */}
       <h1 className="text-3xl font-bold mb-8">
         CERTIFICATES
       </h1>
@@ -180,17 +252,20 @@ export default function Certificates() {
               className={`
                 flex
                 items-center
+                justify-center
                 gap-2
-                px-8
+                px-7
                 py-3
                 rounded-lg
                 font-semibold
+                text-base
+                whitespace-nowrap
                 transition-all
                 duration-300
                 ${
                   activeCategory === category.name
-                    ? "bg-gradient-to-r from-blue-900 via-blue-500 to-blue-900 text-white shadow-lg"
-                    : "bg-slate-800 hover:bg-slate-700"
+                    ? "bg-gradient-to-r from-blue-900 via-blue-500 to-blue-900 text-white shadow-lg shadow-blue-500/20"
+                    : "bg-slate-800 text-white hover:bg-slate-700"
                 }
               `}
             >
@@ -203,17 +278,26 @@ export default function Certificates() {
 
       </div>
 
-      {/* Main Card */}
-      <div className="rounded-xl border border-white/10 overflow-hidden">
+      {/* Category Container */}
+      <div
+        className="
+          rounded-xl
+          border
+          border-white/10
+          bg-slate-900/30
+          overflow-hidden
+        "
+      >
 
-        {/* Header */}
+        {/* Category Header */}
         <div
           className="
             bg-gradient-to-r
             from-blue-900
             via-blue-500
             to-blue-900
-            p-4
+            px-6
+            py-4
             text-xl
             font-bold
             flex
@@ -221,16 +305,28 @@ export default function Certificates() {
             gap-3
           "
         >
-          {getIcon()}
-          {activeCategory}
+          {getCategoryIcon()}
+
+          <span>
+            {activeCategory}
+          </span>
         </div>
 
         {/* Documents */}
         <div className="p-8">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+          <div
+            className="
+              grid
+              grid-cols-1
+              sm:grid-cols-2
+              lg:grid-cols-3
+              xl:grid-cols-4
+              gap-6
+            "
+          >
 
-            {getDocuments().map((document) => (
+            {documents.map((document) => (
 
               <div
                 key={document.title}
@@ -245,6 +341,7 @@ export default function Certificates() {
                   hover:border-blue-500/50
                   hover:shadow-lg
                   hover:shadow-blue-500/10
+                  hover:-translate-y-1
                 "
               >
 
@@ -261,17 +358,17 @@ export default function Certificates() {
 
                   <div className="flex items-center gap-3">
 
-                    <div className="text-cyan-300">
-                      {getIcon()}
+                    <div className="text-cyan-300 shrink-0">
+                      {getCategoryIcon()}
                     </div>
 
-                    <div>
+                    <div className="min-w-0">
 
-                      <h2 className="font-bold text-lg">
+                      <h2 className="font-bold text-lg leading-tight">
                         {document.title}
                       </h2>
 
-                      <p className="text-blue-100 text-sm">
+                      <p className="text-blue-100 text-sm mt-1">
                         {document.subtitle}
                       </p>
 
@@ -284,13 +381,20 @@ export default function Certificates() {
                 {/* Card Body */}
                 <div className="p-5">
 
-                  <p className="text-gray-400 mb-5">
-                    Official Academic Document
-                  </p>
+                  <div className="flex items-center gap-2 text-gray-400 mb-5">
 
+                    <FileText className="w-4 h-4" />
+
+                    <span className="text-sm">
+                      PDF Document
+                    </span>
+
+                  </div>
+
+                  {/* Buttons */}
                   <div className="flex gap-3">
 
-                    {/* View */}
+                    {/* View Button */}
                     <button
                       onClick={() => setSelectedDocument(document)}
                       className="
@@ -316,7 +420,7 @@ export default function Certificates() {
                       View
                     </button>
 
-                    {/* Download */}
+                    {/* Download Button */}
                     <a
                       href={document.file}
                       download
@@ -364,11 +468,12 @@ export default function Certificates() {
           className="
             fixed
             inset-0
+            z-50
             bg-black/80
+            backdrop-blur-sm
             flex
             items-center
             justify-center
-            z-50
             p-4
           "
         >
@@ -381,8 +486,9 @@ export default function Certificates() {
               max-w-6xl
               h-[90vh]
               border
-              border-blue-500
+              border-blue-500/50
               shadow-2xl
+              shadow-blue-500/10
               overflow-hidden
             "
           >
@@ -390,19 +496,20 @@ export default function Certificates() {
             {/* Modal Header */}
             <div
               className="
+                h-20
                 flex
-                justify-between
                 items-center
+                justify-between
                 px-6
-                py-4
                 border-b
                 border-slate-700
+                bg-slate-900
               "
             >
 
-              <div>
+              <div className="min-w-0">
 
-                <h2 className="text-xl font-bold">
+                <h2 className="text-xl font-bold truncate">
                   {selectedDocument.title}
                 </h2>
 
@@ -412,8 +519,9 @@ export default function Certificates() {
 
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 ml-4">
 
+                {/* Modal Download */}
                 <a
                   href={selectedDocument.file}
                   download
@@ -427,21 +535,27 @@ export default function Certificates() {
                     bg-gradient-to-r
                     from-cyan-500
                     to-blue-600
+                    text-white
                     font-semibold
                     hover:scale-105
                     transition-all
+                    duration-300
                   "
                 >
                   <Download className="w-4 h-4" />
                   Download
                 </a>
 
+                {/* Close Button */}
                 <button
                   onClick={() => setSelectedDocument(null)}
                   className="
+                    p-2
+                    rounded-lg
                     text-red-400
                     hover:text-red-300
-                    transition
+                    hover:bg-red-500/10
+                    transition-all
                   "
                 >
                   <X className="w-7 h-7" />
@@ -451,13 +565,13 @@ export default function Certificates() {
 
             </div>
 
-            {/* PDF */}
+            {/* PDF Viewer */}
             <div className="w-full h-[calc(90vh-80px)] bg-white">
 
               <iframe
                 src={selectedDocument.file}
                 title={selectedDocument.title}
-                className="w-full h-full"
+                className="w-full h-full border-0"
               />
 
             </div>
